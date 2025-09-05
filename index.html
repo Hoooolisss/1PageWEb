@@ -1,21 +1,177 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Inicio</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sorpresa: Te amo</title>
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --accent:#ff6b81;
+      --glass: rgba(255,255,255,0.04);
+    }
+    html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial}
+    body{background: radial-gradient(circle at 10% 10%, #12203a 0%, var(--bg) 40%), linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.25));display:flex;align-items:center;justify-content:center;color:#e6eef8}
+
+    .card{
+      width:920px;max-width:94vw;height:540px;max-height:86vh;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.06));border-radius:18px;padding:28px;box-shadow:0 10px 30px rgba(2,6,23,0.7);position:relative;overflow:hidden;border:1px solid rgba(255,255,255,0.03)
+    }
+
+    h1{margin:0 0 8px 0;font-size:28px;letter-spacing:0.2px}
+    p{margin:0 0 18px 0;opacity:0.9}
+
+    .play-area{position:relative;flex:1;border-radius:12px;background:linear-gradient(120deg, rgba(255,255,255,0.02), rgba(0,0,0,0.06));height:420px;display:flex;align-items:center;justify-content:center}
+
+    #loveBtn{
+      --size:120px;
+      width:var(--size);height:var(--size);border-radius:999px;border:none;cursor:pointer;display:inline-grid;place-items:center;font-size:18px;background:linear-gradient(135deg,var(--accent),#ff4d6d);color:white;box-shadow:0 8px 20px rgba(255,107,129,0.18), inset 0 -6px 12px rgba(0,0,0,0.12);transition:transform .18s ease, box-shadow .18s ease;position:absolute;user-select:none
+    }
+    #loveBtn:active{transform:scale(.96)}
+
+    .floating{
+      position:absolute;left:50%;transform:translateX(-50%);bottom:20px;padding:8px 14px;border-radius:999px;background:var(--glass);backdrop-filter:blur(6px);font-weight:600;color:var(--accent);display:flex;gap:8px;align-items:center;border:1px solid rgba(255,107,129,0.08)
+    }
+
+    .heart{
+      pointer-events:none;position:absolute;font-size:18px;will-change:transform,opacity;user-select:none
+    }
+
+    .count-bubble{position:absolute;top:18px;right:20px;background:rgba(255,255,255,0.04);padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,0.03);font-weight:700}
+
+    footer{position:absolute;left:18px;bottom:12px;font-size:12px;color:rgba(230,238,248,0.6)}
+
+    @media (max-width:520px){#loveBtn{--size:90px;font-size:16px}}  
+  </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="index.html">Inicio</a>
-            <a href="about.html">Acerca</a>
-            <a href="contact.html">Contacto</a>
-        </nav>
-    </header>
-    <main>
-        <h1>Bienvenido a mi página web</h1>
-        <p>Este es el inicio de mi primer sitio en GitHub Pages 🚀</p>
-    </main>
+  <div class="card">
+    <h1>Una sorpresita para ella</h1>
+    <p>Toca el botón varias veces y verás cómo aparecen mensajitos. El botón se moverá para jugar contigo.</p>
+
+    <div class="play-area" id="play">
+      <button id="loveBtn">Toca</button>
+      <div class="count-bubble" id="count">0</div>
+      <div class="floating" id="hint">Pss... intenta tocar muchas veces</div>
+    </div>
+
+    <footer>Hecho con ❤️ — Sube este archivo como <code>index.html</code> en un repo y activa GitHub Pages</footer>
+  </div>
+
+  <script>
+    // Elementos
+    const btn = document.getElementById('loveBtn');
+    const play = document.getElementById('play');
+    const countEl = document.getElementById('count');
+    const hint = document.getElementById('hint');
+
+    let count = 0;
+
+    // Coloca el botón inicialmente en el centro
+    function centerButton(){
+      const rect = play.getBoundingClientRect();
+      btn.style.left = (rect.width/2 - btn.offsetWidth/2) + 'px';
+      btn.style.top = (rect.height/2 - btn.offsetHeight/2) + 'px';
+    }
+
+    // Mueve el botón a una posición aleatoria dentro del área, con margen
+    function moveButtonRandom(){
+      const pad = 12;
+      const pw = play.clientWidth - btn.offsetWidth - pad*2;
+      const ph = play.clientHeight - btn.offsetHeight - pad*2;
+      const x = Math.max(0, Math.floor(Math.random() * pw) + pad);
+      const y = Math.max(0, Math.floor(Math.random() * ph) + pad);
+      btn.style.left = x + 'px';
+      btn.style.top = y + 'px';
+      // pequeño giro y pop
+      btn.animate([
+        { transform: 'translate3d(0,0,0) scale(1) rotate(0deg)' },
+        { transform: 'translate3d(0,-6px,0) scale(1.06) rotate(-6deg)' },
+        { transform: 'translate3d(0,0,0) scale(1) rotate(0deg)' }
+      ],{ duration: 420, easing: 'cubic-bezier(.22,.9,.3,1)' });
+    }
+
+    // Crea un "te amo" flotante y una corazoncito que sube
+    function spawnLove(){
+      count++;
+      countEl.textContent = count;
+
+      // Mensaje grande
+      const msg = document.createElement('div');
+      msg.textContent = 'Te amo ❤️';
+      msg.style.position = 'absolute';
+      const bx = btn.offsetLeft + btn.offsetWidth/2 - 60;
+      const by = btn.offsetTop + btn.offsetHeight/2 - 20;
+      msg.style.left = bx + 'px';
+      msg.style.top = by + 'px';
+      msg.style.fontWeight = '800';
+      msg.style.padding = '6px 10px';
+      msg.style.borderRadius = '999px';
+      msg.style.background = 'linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02))';
+      msg.style.border = '1px solid rgba(255,107,129,0.06)';
+      msg.style.color = 'white';
+      msg.style.zIndex = 40;
+      play.appendChild(msg);
+
+      // Animación subir y desaparecer
+      const ang = (Math.random() * 40) - 20;
+      msg.animate([
+        { transform: `translateY(0) rotate(${ang}deg)`, opacity:1 },
+        { transform: `translateY(-120px) rotate(${ang+12}deg)`, opacity:0 }
+      ],{ duration: 1200, easing: 'cubic-bezier(.2,.8,.2,1)' });
+      setTimeout(()=> msg.remove(), 1200);
+
+      // Pequeños corazones
+      for(let i=0;i<6;i++){
+        const h = document.createElement('div');
+        h.className = 'heart';
+        h.textContent = '❤';
+        play.appendChild(h);
+        const sx = btn.offsetLeft + btn.offsetWidth/2 + (Math.random()*60 - 30);
+        const sy = btn.offsetTop + btn.offsetHeight/2 + (Math.random()*20 - 10);
+        h.style.left = sx + 'px';
+        h.style.top = sy + 'px';
+        const dx = (Math.random()*120 - 60);
+        const dy = -(80 + Math.random()*140);
+        const rot = (Math.random()*90 - 45);
+        const dur = 900 + Math.random()*700;
+        h.animate([
+          { transform: 'translate3d(0,0,0) rotate(0deg)', opacity:1 },
+          { transform: `translate3d(${dx}px, ${dy}px, 0) rotate(${rot}deg)`, opacity:0 }
+        ],{ duration: dur, easing: 'cubic-bezier(.2,.8,.2,1)' });
+        setTimeout(()=> h.remove(), dur);
+      }
+
+      // pequeño empujoncito al hint
+      if(count>2){ hint.style.opacity = '0'; }
+    }
+
+    // Manejo del click
+    btn.addEventListener('click', (e)=>{
+      spawnLove();
+      moveButtonRandom();
+    });
+
+    // Recalcula si cambia tamaño
+    window.addEventListener('resize', ()=>{
+      // si el botón está fuera, recenter
+      const rect = play.getBoundingClientRect();
+      if(btn.offsetLeft + btn.offsetWidth > play.clientWidth || btn.offsetTop + btn.offsetHeight > play.clientHeight){
+        centerButton();
+      }
+    });
+
+    // Inicializa posición cuando cargue el layout
+    window.addEventListener('load', ()=>{
+      // espera un tick para que los tamaños sean correctos
+      setTimeout(()=> centerButton(), 30);
+    });
+
+    // Permite tocar también con teclado (enter/space)
+    btn.addEventListener('keydown', (ev)=>{
+      if(ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); btn.click(); }
+    });
+
+  </script>
 </body>
 </html>
