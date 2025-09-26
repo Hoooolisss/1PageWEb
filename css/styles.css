@@ -1,17 +1,24 @@
-body {
-  font-family: 'Arial', sans-serif;
+body, html {
   margin: 0;
   padding: 0;
-  background-color: #fefefe;
-  color: #333;
+  font-family: 'Segoe UI', sans-serif;
 }
 
-header {
-  background-color: #ff69b4;
-  padding: 10px 20px;
+.top-bar {
+  background-color: #2e7d32;
+  color: white;
+  text-align: center;
+  padding: 5px;
+  font-size: 14px;
+}
+
+.nav-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: white;
+  padding: 10px 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .logo {
@@ -26,25 +33,59 @@ nav ul {
 
 nav a {
   text-decoration: none;
-  color: white;
+  color: #333;
   font-weight: bold;
 }
 
-main {
-  padding: 20px;
-  text-align: center;
+.hero {
+  background-image: url('../assets/fondo-helados.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 80vh;
+  position: relative;
 }
 
-.hero-img {
-  width: 80%;
-  max-width: 600px;
-  margin-top: 20px;
-  border-radius: 10px;
-}
-
-footer {
-  background-color: #ff69b4;
+.overlay {
+  background-color: rgba(0,0,0,0.5);
   color: white;
   text-align: center;
+  padding-top: 100px;
+  height: 100%;
+}
+
+.overlay h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.overlay p {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.btn {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.whatsapp {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #25d366;
+  color: white;
   padding: 10px;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.whatsapp img {
+  height: 24px;
 }
