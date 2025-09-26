@@ -1,3 +1,1 @@
-document.addEventListener("DOMContentLoaded", () => {
-  console.log("Bonanza está lista para servir helados 🍨");
-});
+console.log("Bonanza lista para servir helados 🍨");
