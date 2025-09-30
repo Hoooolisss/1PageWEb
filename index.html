@@ -1,50 +1,347 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Heladería Bonanza</title>
-  <link rel="stylesheet" href="css/styles.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>La Cremería — Helados artesanales</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700;800&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root{
+      --cream: #F6F2E9; /* fondo general */
+      --sage: #6E8F6E; /* verde */
+      --deep: #28433A; /* verde oscuro para texto */
+      --accent: #CAD7C0; /* acento claro */
+      --muted: #8B8B83;
+      --glass: rgba(255,255,255,0.6);
+      --radius: 14px;
+      --max-width: 1100px;
+      --shadow: 0 8px 24px rgba(40,66,58,0.08);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: 'Nunito', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background:linear-gradient(180deg,var(--cream) 0%, #F9F8F6 100%);
+      color:var(--deep);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+    }
+    .container{max-width:var(--max-width);margin:0 auto;padding:28px}
+
+    /* Header */
+    header{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo{
+      width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,var(--sage),var(--accent));
+      display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-family:'Playfair Display';box-shadow:var(--shadow)
+    }
+    .brand h1{font-size:20px;margin:0}
+    .nav{display:flex;gap:12px;align-items:center}
+    .nav a{color:var(--deep);text-decoration:none;padding:8px 12px;border-radius:10px;font-weight:700}
+    .nav a.btn{background:var(--sage);color:#fff}
+
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;margin:18px 0}
+    .hero-card{background:linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0.7));padding:28px;border-radius:var(--radius);box-shadow:var(--shadow)}
+    .kicker{display:inline-block;background:var(--accent);padding:6px 10px;border-radius:999px;font-weight:700;color:var(--deep);font-size:12px}
+    .hero h2{font-family:'Playfair Display';font-size:34px;margin:12px 0;color:var(--deep)}
+    .hero p.lead{color:var(--muted);margin:12px 0}
+    .cta-row{display:flex;gap:12px;margin-top:18px}
+    .btn-primary{background:var(--sage);color:#fff;padding:12px 18px;border-radius:12px;border:none;cursor:pointer;font-weight:700}
+    .btn-outline{background:transparent;border:2px solid var(--sage);color:var(--deep);padding:10px 16px;border-radius:12px;font-weight:700}
+
+    /* Scoop preview */
+    .preview{background:linear-gradient(180deg,#fff, #fbfbfb);padding:18px;border-radius:12px;display:flex;flex-direction:column;gap:10px;align-items:center}
+    .scoop{width:220px;height:220px;border-radius:16px;background:conic-gradient(from 120deg, #FFE6C7 0% 33%, #E6F6E9 33% 66%, #FFF7E3 66% 100%);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(40,66,58,0.06)}
+    .scoop img{width:80%;height:auto}
+    .price{font-size:20px;font-weight:800}
+
+    /* Menu cards */
+    .menu{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:22px 0}
+    .card{background:transparent;border-radius:14px;padding:18px;border:1px solid rgba(40,66,58,0.06);backdrop-filter:blur(6px)}
+    .card h3{margin:6px 0 0 0;font-size:18px}
+    .card p{color:var(--muted);font-size:14px}
+    .card .row{display:flex;align-items:center;justify-content:space-between;margin-top:12px}
+
+    /* Gallery */
+    .gallery{margin:18px 0;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    .thumb{border-radius:12px;overflow:hidden;height:140px;background:#eee;display:flex;align-items:center;justify-content:center}
+    .thumb img{width:100%;height:100%;object-fit:cover}
+
+    /* Footer / contact */
+    footer{margin-top:28px;padding:22px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.5));box-shadow:var(--shadow)}
+    .footer-grid{display:grid;grid-template-columns:1fr 320px;gap:20px}
+    .contact input,.contact textarea{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(40,66,58,0.08);margin-top:8px}
+    .contact button{margin-top:8px}
+
+    /* small screens */
+    @media (max-width:900px){
+      .hero{grid-template-columns:1fr;}
+      .menu{grid-template-columns:repeat(2,1fr)}
+      .gallery{grid-template-columns:repeat(2,1fr)}
+      .footer-grid{grid-template-columns:1fr}
+    }
+    @media (max-width:480px){
+      .menu{grid-template-columns:1fr}
+    }
+
+    /* little animations */
+    .brand .logo{transition:transform .28s ease}
+    .brand .logo:hover{transform:rotate(-6deg) scale(1.02)}
+    .card:hover{transform:translateY(-6px);transition:transform .2s ease}
+  </style>
 </head>
 <body>
-  <header>
-    <div class="top-bar">
-      <span>T. 989450200 | Todaaas las Zonas | Minimo bb S/. 50.00</span>
-    </div>
-    <div class="nav-bar">
-      <img src="assets/logo.png" alt="Bonanza Logo" class="logo" />
-      <nav>
-        <ul>
-          <li><a href="#">Inicio</a></li>
-          <li><a href="#">Quiénes Somos</a></li>
-          <li><a href="#">Productos</a></li>
-          <li><a href="#">Zonas de Reparto</a></li>
-          <li><a href="#">Blog</a></li>
-          <li><a href="#">Cambios y Reembolsos</a></li>
-          <li><a href="#">Contacto</a></li>
-        </ul>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">LC</div>
+        <div>
+          <h1>La Cremería</h1>
+          <div style="font-size:12px;color:var(--muted)">Helados artesanales • Delicias frías</div>
+        </div>
+      </div>
+      <nav class="nav">
+        <a href="#menu">Menú</a>
+        <a href="#galeria">Galería</a>
+        <a href="#contacto">Contacto</a>
+        <a class="btn" id="openCart">Carrito (0)</a>
       </nav>
-      <div class="cart-icon">
-        <img src="assets/cart-icon.png" alt="Carrito" />
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-card">
+          <span class="kicker">NOVEDAD</span>
+          <h2>Helados artesanales con ingredientes naturales</h2>
+          <p class="lead">Sabores de temporada, toppings hechos en casa y conos recién horneados. Respetamos las recetas tradicionales y le añadimos un toque moderno.</p>
+          <div class="cta-row">
+            <button class="btn-primary" onclick="scrollToSection('menu')">Ver menú</button>
+            <button class="btn-outline" onclick="scrollToSection('contacto')">Reservar evento</button>
+          </div>
+
+          <div style="margin-top:18px;display:flex;gap:12px;align-items:center">
+            <div style="flex:1">
+              <strong>Abierto hoy</strong>
+              <div style="color:var(--muted);font-size:14px">10:00 — 22:00 • Delivery disponible</div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-size:12px;color:var(--muted)">Dirección</div>
+              <div style="font-weight:700">Av. Sabores 123</div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="preview">
+          <div class="scoop" aria-hidden="true">
+            <!-- ilustración simple -->
+            <svg width="160" height="160" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Helado">
+              <defs>
+                <linearGradient id="g1" x1="0" x2="1">
+                  <stop offset="0" stop-color="#FFF7E3" />
+                  <stop offset="1" stop-color="#E6F6E9" />
+                </linearGradient>
+              </defs>
+              <circle cx="100" cy="70" r="60" fill="url(#g1)" />
+              <rect x="80" y="110" width="40" height="70" rx="8" fill="#D6A87A" transform="rotate(-10 100 145)" />
+            </svg>
+          </div>
+          <div style="text-align:center">
+            <div class="price">Desde S/ 6.00</div>
+            <div style="font-size:13px;color:var(--muted)">Cono clásico • Toppings incluidos</div>
+          </div>
+        </aside>
+      </section>
+
+      <section id="menu">
+        <h2 style="font-family:'Playfair Display';margin:6px 0">Nuestro menú</h2>
+        <p style="color:var(--muted);margin-top:4px">Selecciona tu sabor favorito — también tenemos opciones veganas y sin azúcar.</p>
+
+        <div class="menu" role="list">
+          <!-- Card 1 -->
+          <article class="card" role="listitem">
+            <h3>Vainilla bourbon</h3>
+            <p>Clásico y cremoso, extra de vainilla natural.</p>
+            <div class="row">
+              <div style="font-weight:800">S/6.00</div>
+              <button onclick="addToCart('Vainilla bourbon',6)" class="btn-outline">Agregar</button>
+            </div>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="card" role="listitem">
+            <h3>Matcha & Limón</h3>
+            <p>Sabor refrescante con té matcha orgánico.</p>
+            <div class="row">
+              <div style="font-weight:800">S/7.50</div>
+              <button onclick="addToCart('Matcha & Limón',7.5)" class="btn-outline">Agregar</button>
+            </div>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="card" role="listitem">
+            <h3>Chocolate intenso</h3>
+            <p>Hecho con cacao orgánico — para los chocoadictos.</p>
+            <div class="row">
+              <div style="font-weight:800">S/7.00</div>
+              <button onclick="addToCart('Chocolate intenso',7)" class="btn-outline">Agregar</button>
+            </div>
+          </article>
+
+          <!-- Card 4 -->
+          <article class="card" role="listitem">
+            <h3>Frutos rojos</h3>
+            <p>Mezcla ácida y dulce; fresas, zarzamora y frambuesa.</p>
+            <div class="row">
+              <div style="font-weight:800">S/7.00</div>
+              <button onclick="addToCart('Frutos rojos',7)" class="btn-outline">Agregar</button>
+            </div>
+          </article>
+
+          <!-- Card 5 -->
+          <article class="card" role="listitem">
+            <h3>Arequipe y nuez</h3>
+            <p>Arequipe artesanal con trozos de nuez crocante.</p>
+            <div class="row">
+              <div style="font-weight:800">S/8.00</div>
+              <button onclick="addToCart('Arequipe y nuez',8)" class="btn-outline">Agregar</button>
+            </div>
+          </article>
+
+          <!-- Card 6 -->
+          <article class="card" role="listitem">
+            <h3>Vegano: Coco tropical</h3>
+            <p>Leche de coco, sin lácteos, textura cremosa.</p>
+            <div class="row">
+              <div style="font-weight:800">S/7.00</div>
+              <button onclick="addToCart('Coco tropical (V)',7)" class="btn-outline">Agregar</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="galeria">
+        <h2 style="font-family:'Playfair Display';margin:6px 0">Galería</h2>
+        <p style="color:var(--muted)">Algunas fotos de nuestras creaciones</p>
+        <div class="gallery" aria-hidden="false">
+          <div class="thumb"><img src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=abcd" alt="helado1"></div>
+          <div class="thumb"><img src="https://images.unsplash.com/photo-1505250469679-203ad9ced0cb?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=abcd" alt="helado2"></div>
+          <div class="thumb"><img src="https://images.unsplash.com/photo-1506806732259-39c2d0268443?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=abcd" alt="helado3"></div>
+          <div class="thumb"><img src="https://images.unsplash.com/photo-1449041898980-1b0c5b1b28f3?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=abcd" alt="conos"></div>
+        </div>
+      </section>
+
+      <footer id="contacto">
+        <div class="footer-grid">
+          <div>
+            <h3>Reserva tu torta o evento</h3>
+            <p style="color:var(--muted)">Rellena el formulario y te respondemos en menos de 24 horas.</p>
+            <div style="margin-top:12px;color:var(--muted)">Teléfono: 945-000-111<br>Horario: 10:00 - 22:00</div>
+          </div>
+
+          <div class="contact">
+            <label for="name">Nombre</label>
+            <input id="name" placeholder="Tu nombre" />
+            <label for="mail">Correo</label>
+            <input id="mail" placeholder="tu@correo.com" />
+            <label for="msg">Mensaje</label>
+            <textarea id="msg" rows="4" placeholder="¿Qué quieres reservar?"></textarea>
+            <button class="btn-primary" onclick="submitContact()">Enviar</button>
+            <div id="contactMsg" style="margin-top:8px;color:var(--deep);"></div>
+          </div>
+        </div>
+        <div style="text-align:center;margin-top:14px;color:var(--muted);font-size:13px">© La Cremería • Hecho con cariño</div>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Carrito modal simple -->
+  <div id="cartModal" style="position:fixed;right:20px;bottom:20px;z-index:1000;display:none;">
+    <div style="width:340px;background:#fff;padding:16px;border-radius:12px;box-shadow:0 20px 40px rgba(20,30,20,0.12)">
+      <h4 style="margin:0 0 8px 0">Tu carrito</h4>
+      <div id="cartItems" style="max-height:220px;overflow:auto;margin-bottom:8px"></div>
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <strong id="cartTotal">S/ 0.00</strong>
+        <button class="btn-primary" onclick="checkout()">Pagar</button>
       </div>
     </div>
-  </header>
-
-  <main>
-    <section class="hero">
-      <div class="overlay">
-        <h1>HORARIO DE ATENCIÓN</h1>
-        <p>Lunes a Domingos 11:00 - 21:00</p>
-        <a href="#" class="btn">Comprar Ahora</a>
-      </div>
-    </section>
-  </main>
-
-  <div class="whatsapp">
-    <a href="https://wa.me/51989450200" target="_blank">
-      <img src="assets/whatsapp-icon.png" alt="WhatsApp" />
-      <span>¿En qué podemos ayudarte?</span>
-    </a>
   </div>
+
+  <script>
+    // Sitio ligero de interactividad (sin dependencias)
+    const cart = [];
+    function addToCart(name,price){
+      cart.push({name,price});
+      updateCartUI();
+      flash("Agregado: " + name);
+    }
+    function updateCartUI(){
+      const btn = document.getElementById('openCart');
+      btn.textContent = `Carrito (${cart.length})`;
+      const items = document.getElementById('cartItems');
+      if(items){
+        items.innerHTML = '';
+        let total = 0;
+        cart.forEach((it, idx)=>{
+          total += it.price;
+          const row = document.createElement('div');
+          row.style.display='flex';row.style.justifyContent='space-between';row.style.padding='6px 0';
+          row.innerHTML = `<div style='font-size:14px'>${it.name}</div><div style='font-weight:700'>S/ ${it.price.toFixed(2)}</div>`;
+          items.appendChild(row);
+        });
+        document.getElementById('cartTotal').textContent = 'S/ ' + total.toFixed(2);
+      }
+    }
+    document.getElementById('openCart').addEventListener('click', ()=>{
+      const modal = document.getElementById('cartModal');
+      modal.style.display = modal.style.display === 'none' ? 'block' : 'none';
+      updateCartUI();
+    });
+
+    function checkout(){
+      if(cart.length===0){flash('El carrito está vacío');return}
+      alert('Gracias por tu compra. (Simulación)\nTotal: ' + document.getElementById('cartTotal').textContent);
+      cart.length = 0; updateCartUI(); document.getElementById('cartModal').style.display='none';
+    }
+
+    function flash(text){
+      const el = document.createElement('div');
+      el.textContent = text; el.style.position='fixed';el.style.left='50%';el.style.top='20px';el.style.transform='translateX(-50%)';
+      el.style.background = 'var(--deep)';el.style.color='#fff';el.style.padding='8px 14px';el.style.borderRadius='999px';el.style.zIndex=9999;el.style.boxShadow='0 8px 20px rgba(0,0,0,0.12)';
+      document.body.appendChild(el);
+      setTimeout(()=>el.style.opacity=0,1400);
+      setTimeout(()=>el.remove(),1800);
+    }
+
+    function scrollToSection(id){
+      const el = document.getElementById(id);
+      if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+    }
+
+    function submitContact(){
+      const name = document.getElementById('name').value.trim();
+      const mail = document.getElementById('mail').value.trim();
+      const msg = document.getElementById('msg').value.trim();
+      const out = document.getElementById('contactMsg');
+      if(!name || !mail || !msg){ out.textContent = 'Completa todos los campos.'; out.style.color='crimson'; return}
+      out.style.color='var(--deep)'; out.textContent = 'Gracias, tu mensaje fue enviado (simulado).';
+      // Aquí podrías conectar con una API o servicio de correo.
+      document.getElementById('name').value='';document.getElementById('mail').value='';document.getElementById('msg').value='';
+    }
+
+    // small enhancement: lazy load gallery images
+    document.addEventListener('DOMContentLoaded', ()=>{
+      const imgs = document.querySelectorAll('.thumb img');
+      imgs.forEach(img=>{
+        const src = img.getAttribute('src');
+        img.removeAttribute('src');
+        setTimeout(()=>img.setAttribute('src',src),200);
+      });
+    });
+  </script>
 </body>
 </html>
