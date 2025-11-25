@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos | Bonanza</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- HEADER CON CARRITO -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>BONANZA</h1>
+            </div>
+            <nav class="nav">
+    <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="productos.html">Productos</a></li>
+        <li><a href="sobre-nosotros.html">Sobre Nosotros</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+    </ul>
+    <div class="nav-actions">
+        <button id="cart-btn" class="cart-btn-icon">
+            🛒 <span id="cart-count">0</span>
+    </div>
+</nav>
+
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="page-hero" style="background: linear-gradient(135deg, #2c5f2d 0%, #97c93d 100%);">
+        <div class="hero-content">
+            <h1>Nuestros Productos</h1>
+            <p>Calidad y sabor en cada producto</p>
+        </div>
+    </section>
+
+    <!-- CATÁLOGO DE PRODUCTOS -->
+    <section class="productos">
+        <div class="container">
+            <h2 class="section-title">Catálogo Completo</h2>
+            <div class="productos-grid">
+                <!-- Producto 1 -->
+                <div class="producto-card">
+                    <div class="producto-imagen">
+                        <img src="assets/images/matequilla.jpg" alt="Mantequilla">
+                    </div>
+                    <h3>MANTEQUILLA</h3>
+                    <p>Mantequilla fresca y cremosa elaborada con leche 100% natural</p>
+                    <button class="btn-secondary add-to-cart"
+                      data-id="1"
+                      data-nombre="MANTEQUILLA"
+                      data-precio="10"
+                      data-img="assets/images/matequilla.jpg">
+                      Añadir al carrito
+                    </button>
+                </div>
+
+                <!-- Producto 2 -->
+                <div class="producto-card">
+                    <div class="producto-imagen">
+                        <img src="assets/images/helados duros de leche.jpg" alt="Helados">
+                    </div>
+                    <h3>HELADOS DUROZ DE LECHE</h3>
+                    <p>Helados artesanales de leche con sabor tradicional</p>
+                    <button class="btn-secondary add-to-cart"
+                      data-id="2"
+                      data-nombre="HELADOS DUROZ"
+                      data-precio="12"
+                      data-img="assets/images/helados duros de leche.jpg">
+                      Añadir al carrito
+                    </button>
+                </div>
+
+                <!-- Producto 3 -->
+                <div class="producto-card">
+                    <div class="producto-imagen">
+                        <img src="assets/images/Cono Ice.jpg" alt="Cono Ice">
+                    </div>
+                    <h3>CONO ICE</h3>
+                    <p>Deliciosos conos de helado para toda la familia</p>
+                    <button class="btn-secondary add-to-cart"
+                      data-id="3"
+                      data-nombre="CONO ICE"
+                      data-precio="8"
+                      data-img="assets/images/Cono Ice.jpg">
+                      Añadir al carrito
+                    </button>
+                </div>
+
+                <!-- Producto 4 -->
+                <div class="producto-card">
+                    <div class="producto-imagen">
+                        <img src="assets/images/paletas.jpg" alt="Paletas">
+                    </div>
+                    <h3>PALETAS</h3>
+                    <p>Paletas de diferentes sabores, refrescantes y naturales</p>
+                    <button class="btn-secondary add-to-cart"
+                      data-id="4"
+                      data-nombre="PALETAS"
+                      data-precio="6"
+                      data-img="assets/images/paletas.jpg">
+                      Añadir al carrito
+                    </button>
+                </div>
+
+                <!-- Producto 5 -->
+                <div class="producto-card">
+                    <div class="producto-imagen">
+                        <img src="assets/images/ice cono clasico.jpg" alt="Ice Cono Clásico">
+                    </div>
+                    <h3>ICE CONO CLASICO</h3>
+                    <p>El clásico que todos aman, nunca pasa de moda</p>
+                    <button class="btn-secondary add-to-cart"
+                      data-id="5"
+                      data-nombre="ICE CONO CLASICO"
+                      data-precio="9"
+                      data-img="assets/images/ice cono clasico.jpg">
+                      Añadir al carrito
+                    </button>
+                </div>
+
+                <!-- Producto 6 -->
+                <div class="producto-card">
+                    <div class="producto-imagen">
+                        <img src="assets/images/yogurt.jpg" alt="Yogur">
+                    </div>
+                    <h3>YOGUR</h3>
+                    <p>Yogur natural y nutritivo, rico en probióticos</p>
+                    <button class="btn-secondary add-to-cart"
+                      data-id="6"
+                      data-nombre="YOGUR"
+                      data-precio="7"
+                      data-img="assets/images/yogurt.jpg">
+                      Añadir al carrito
+                    </button>
+                </div>
+
+                <!-- Producto 7 -->
+                <div class="producto-card">
+                    <div class="producto-imagen">
+                        <img src="assets/images/quesos.jpg" alt="Quesos">
+                    </div>
+                    <h3>QUESOS</h3>
+                    <p>Quesos frescos y madurados de alta calidad</p>
+                    <button class="btn-secondary add-to-cart"
+                      data-id="7"
+                      data-nombre="QUESOS"
+                      data-precio="15"
+                      data-img="assets/images/quesos.jpg">
+                      Añadir al carrito
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODAL DEL CARRITO -->
+    <div id="cart-modal" class="cart-modal">
+      <div class="cart-modal-content">
+        <span id="close-cart" class="close-cart">&times;</span>
+        <h2>Carrito de Compras</h2>
+        <div id="cart-items"></div>
+        <div class="cart-total">
+            <strong>Total:</strong> S/ <span id="cart-total">0</span>
+        </div>
+        <button id="checkout-btn" class="btn-primary" disabled>Pagar con Stripe</button>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>BONANZA</h3>
+                    <p>Productos lácteos de la más alta calidad desde 2002</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Enlaces Rápidos</h4>
+                    <ul>
+                        <li><a href="productos.html">Productos</a></li>
+                        <li><a href="sobre-nosotros.html">Sobre Nosotros</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Bonanza. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="js/main.js"></script>
+    <script src="js/carrito.js"></script>
+</body>
+</html>

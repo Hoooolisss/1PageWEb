@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Bonanza</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body class="login-body">
+    <!-- Header simple -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1><a href="index.html" style="color: white; text-decoration: none;">BONANZA</a></h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenedor de Login/Registro -->
+    <div class="auth-container">
+        <div class="auth-box">
+            <!-- Tabs de Login/Registro -->
+            <div class="auth-tabs">
+                <button class="auth-tab active" id="login-tab">Iniciar Sesión</button>
+                <button class="auth-tab" id="register-tab">Registrarse</button>
+            </div>
+
+            <!-- FORMULARIO DE LOGIN -->
+            <form class="auth-form active" id="login-form">
+                <h2>Bienvenido de nuevo</h2>
+                <p class="subtitle">Ingresa tus credenciales para continuar</p>
+
+                <div class="form-group">
+                    <label for="login-email">
+                        <span class="icon">📧</span>
+                        Correo Electrónico
+                    </label>
+                    <input 
+                        type="email" 
+                        id="login-email" 
+                        name="email" 
+                        placeholder="tu@email.com" 
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="login-password">
+                        <span class="icon">🔒</span>
+                        Contraseña
+                    </label>
+                    <input 
+                        type="password" 
+                        id="login-password" 
+                        name="password" 
+                        placeholder="••••••••" 
+                        required
+                    >
+                </div>
+
+                <div class="form-options">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="remember-me">
+                        <span>Recordarme</span>
+                    </label>
+                    <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+                </div>
+
+                <button type="submit" class="btn-auth">Iniciar Sesión</button>
+
+                <p class="message" id="login-message"></p>
+            </form>
+
+            <!-- FORMULARIO DE REGISTRO -->
+            <form class="auth-form" id="register-form">
+                <h2>Crear una cuenta</h2>
+                <p class="subtitle">Únete a la familia Bonanza</p>
+
+                <div class="form-group">
+                    <label for="register-name">
+                        <span class="icon">👤</span>
+                        Nombre Completo
+                    </label>
+                    <input 
+                        type="text" 
+                        id="register-name" 
+                        name="name" 
+                        placeholder="Juan Pérez" 
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="register-email">
+                        <span class="icon">📧</span>
+                        Correo Electrónico
+                    </label>
+                    <input 
+                        type="email" 
+                        id="register-email" 
+                        name="email" 
+                        placeholder="tu@email.com" 
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="register-password">
+                        <span class="icon">🔒</span>
+                        Contraseña
+                    </label>
+                    <input 
+                        type="password" 
+                        id="register-password" 
+                        name="password" 
+                        placeholder="Mínimo 6 caracteres" 
+                        required
+                        minlength="6"
+                    >
+                    <div class="password-strength" id="password-strength"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="register-confirm-password">
+                        <span class="icon">🔒</span>
+                        Confirmar Contraseña
+                    </label>
+                    <input 
+                        type="password" 
+                        id="register-confirm-password" 
+                        name="confirm-password" 
+                        placeholder="Repite tu contraseña" 
+                        required
+                    >
+                </div>
+
+                <label class="checkbox-label">
+                    <input type="checkbox" id="accept-terms" required>
+                    <span>Acepto los <a href="#" class="terms-link">términos y condiciones</a></span>
+                </label>
+
+                <button type="submit" class="btn-auth">Crear Cuenta</button>
+
+                <p class="message" id="register-message"></p>
+            </form>
+        </div>
+
+        <!-- Decoración visual -->
+        <div class="auth-decoration">
+            <div class="circle circle-1"></div>
+            <div class="circle circle-2"></div>
+            <div class="circle circle-3"></div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+</body>
+</html>
