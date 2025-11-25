@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | Bonanza</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/checkout.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-flex">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="assets/images/logo.jpg" alt="Bonanza Logo" class="logo-img">
+                </a>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="productos.html">Productos</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Checkout Container -->
+    <section class="checkout-section">
+        <div class="checkout-container">
+            <!-- Columna Izquierda: Formulario -->
+            <div class="checkout-left">
+                <h2>Finalizar Compra</h2>
+                
+                <div class="checkout-card">
+                    <h3>📋 Información de Contacto</h3>
+                    <form id="checkout-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Nombre Completo *</label>
+                                <input type="text" id="nombre" required placeholder="Juan Pérez">
+                            </div>
+                            <div class="form-group">
+                                <label>Email *</label>
+                                <input type="email" id="email" required placeholder="tu@email.com">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Teléfono *</label>
+                                <input type="tel" id="telefono" required placeholder="+51 999 999 999">
+                            </div>
+                            <div class="form-group">
+                                <label>DNI</label>
+                                <input type="text" id="dni" placeholder="12345678">
+                            </div>
+                        </div>
+
+                        <h3>🚚 Dirección de Envío</h3>
+                        <div class="form-group">
+                            <label>Dirección Completa *</label>
+                            <input type="text" id="direccion" required placeholder="Av. Los Álamos 123">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Ciudad *</label>
+                                <input type="text" id="ciudad" required placeholder="Lima">
+                            </div>
+                            <div class="form-group">
+                                <label>Distrito *</label>
+                                <input type="text" id="distrito" required placeholder="Miraflores">
+                            </div>
+                        </div>
+
+                        <h3>📦 Método de Envío</h3>
+                        <div class="shipping-options">
+                            <label class="radio-card">
+                                <input type="radio" name="envio" value="15" checked>
+                                <div>
+                                    <strong>Envío Estándar (3-5 días)</strong>
+                                    <span>S/ 15.00</span>
+                                </div>
+                            </label>
+                            <label class="radio-card">
+                                <input type="radio" name="envio" value="25">
+                                <div>
+                                    <strong>Envío Express (1-2 días)</strong>
+                                    <span>S/ 25.00</span>
+                                </div>
+                            </label>
+                            <label class="radio-card">
+                                <input type="radio" name="envio" value="0">
+                                <div>
+                                    <strong>Recojo en Tienda</strong>
+                                    <span>GRATIS</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <h3>💳 Método de Pago</h3>
+                        <div class="payment-methods">
+                            <button type="button" class="payment-btn active" data-method="stripe">
+                                💳 Tarjeta
+                            </button>
+                            <button type="button" class="payment-btn" data-method="paypal">
+                                💰 PayPal
+                            </button>
+                            <button type="button" class="payment-btn" data-method="yape">
+                                💜 Yape
+                            </button>
+                            <button type="button" class="payment-btn" data-method="plin">
+                                💚 Plin
+                            </button>
+                        </div>
+
+                        <button type="submit" class="btn-checkout">Realizar Pedido</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Columna Derecha: Resumen -->
+            <div class="checkout-right">
+                <div class="order-summary">
+                    <h3>Resumen del Pedido</h3>
+                    <div id="cart-summary-items"></div>
+                    
+                    <div class="summary-totals">
+                        <div class="summary-row">
+                            <span>Subtotal:</span>
+                            <span>S/ <span id="subtotal">0.00</span></span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Envío:</span>
+                            <span>S/ <span id="envio-total">15.00</span></span>
+                        </div>
+                        <div class="summary-row total-row">
+                            <strong>Total:</strong>
+                            <strong>S/ <span id="total-final">0.00</span></strong>
+                        </div>
+                    </div>
+
+                    <div class="secure-payment">
+                        🔒 Pago 100% seguro
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/checkout.js"></script>
+</body>
+</html>

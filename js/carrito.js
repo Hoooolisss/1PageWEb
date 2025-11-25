@@ -1,4 +1,5 @@
-// ------ MOSTRAR CARRITO Y CONTADOR ------
+// ===== CARRITO DE COMPRAS SIMPLE =====
+
 const cartBtn = document.getElementById('cart-btn');
 const cartModal = document.getElementById('cart-modal');
 const closeCart = document.getElementById('close-cart');
@@ -7,81 +8,125 @@ const cartItemsList = document.getElementById('cart-items');
 const cartTotal = document.getElementById('cart-total');
 const checkoutBtn = document.getElementById('checkout-btn');
 
+// Obtener carrito
 function getCart() {
     return JSON.parse(localStorage.getItem('cart_bonanza')) || [];
 }
+
+// Guardar carrito
 function setCart(cart) {
     localStorage.setItem('cart_bonanza', JSON.stringify(cart));
     updateCartCount();
 }
+
+// Actualizar contador
 function updateCartCount() {
     const cart = getCart();
-    cartCount.textContent = cart.reduce((acc, item) => acc + item.cantidad, 0);
+    const total = cart.reduce((acc, item) => acc + item.cantidad, 0);
+    cartCount.textContent = total;
 }
 
-// ------ AGREGAR AL CARRITO DESDE LOS BOTONES ------
+// Agregar al carrito
 document.querySelectorAll('.add-to-cart').forEach(btn => {
-    btn.addEventListener('click', e => {
-        const id = btn.dataset.id;
-        const nombre = btn.dataset.nombre;
-        const precio = Number(btn.dataset.precio);
-        const img = btn.dataset.img;
+    btn.addEventListener('click', function() {
+        const id = this.dataset.id;
+        const nombre = this.dataset.nombre;
+        const precio = parseFloat(this.dataset.precio);
+        const img = this.dataset.img;
+        
         let cart = getCart();
-
         const exists = cart.find(item => item.id === id);
+        
         if (exists) {
             exists.cantidad += 1;
         } else {
-            cart.push({id, nombre, precio, img, cantidad: 1});
+            cart.push({ id, nombre, precio, img, cantidad: 1 });
         }
+        
         setCart(cart);
         updateCartModal();
+        
+        // Animación visual
+        this.textContent = '✓ Agregado';
+        this.style.background = '#4caf50';
+        setTimeout(() => {
+            this.textContent = 'Añadir al carrito';
+            this.style.background = '';
+        }, 1500);
     });
 });
 
-// ------ MODAL FUNCIONALIDAD ------
-cartBtn.onclick = () => {
-    updateCartModal();
-    cartModal.style.display = 'flex';
-}
-closeCart.onclick = () => cartModal.style.display = 'none';
-window.onclick = (e) => {
-    if (e.target === cartModal) cartModal.style.display = 'none';
+// Abrir modal
+if (cartBtn) {
+    cartBtn.addEventListener('click', function() {
+        updateCartModal();
+        cartModal.style.display = 'flex';
+    });
 }
 
+// Cerrar modal
+if (closeCart) {
+    closeCart.addEventListener('click', function() {
+        cartModal.style.display = 'none';
+    });
+}
+
+// Cerrar al hacer click fuera
+window.addEventListener('click', function(e) {
+    if (e.target === cartModal) {
+        cartModal.style.display = 'none';
+    }
+});
+
+// Actualizar modal del carrito
 function updateCartModal() {
     const cart = getCart();
-    cartItemsList.innerHTML = cart.length === 0
-        ? "<p>El carrito está vacío.</p>"
-        : cart.map(item => `
-            <div class="cart-item">
-                <img src="${item.img}" width="40" height="40" style="border-radius:10px;"> ${item.nombre}
-                <span>x${item.cantidad}</span>
-                <span>S/ ${(item.precio * item.cantidad).toFixed(2)}</span>
-                <button class="remove-btn" data-id="${item.id}">🗑️</button>
-            </div>
-        `).join("");
-    cartTotal.textContent = cart.reduce((acc, item) => acc + item.precio * item.cantidad, 0).toFixed(2);
-    checkoutBtn.disabled = cart.length === 0;
-}
-// Eliminar items desde el carrito
-cartItemsList.onclick = function(e) {
-    if (e.target.classList.contains('remove-btn')) {
-        let cart = getCart();
-        const id = e.target.dataset.id;
-        cart = cart.filter(item => item.id !== id);
-        setCart(cart);
-        updateCartModal();
+    
+    if (cart.length === 0) {
+        cartItemsList.innerHTML = '<p style="text-align:center; color:#999; padding:2rem;">Tu carrito está vacío</p>';
+        cartTotal.textContent = '0.00';
+        checkoutBtn.disabled = true;
+        return;
     }
+    
+    cartItemsList.innerHTML = cart.map(item => `
+        <div class="cart-item" style="display: flex; align-items: center; gap: 1rem; padding: 1rem; border-bottom: 1px solid #f0f0f0;">
+            <img src="${item.img}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px;">
+            <div style="flex: 1;">
+                <strong>${item.nombre}</strong>
+                <p style="color: #666; font-size: 0.9rem;">S/ ${item.precio.toFixed(2)} × ${item.cantidad}</p>
+            </div>
+            <strong style="color: var(--primary-color);">S/ ${(item.precio * item.cantidad).toFixed(2)}</strong>
+            <button class="remove-btn" data-id="${item.id}" style="background: #dc3545; color: white; border: none; padding: 0.5rem; border-radius: 5px; cursor: pointer;">🗑️</button>
+        </div>
+    `).join('');
+    
+    const total = cart.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
+    cartTotal.textContent = total.toFixed(2);
+    checkoutBtn.disabled = false;
 }
+
+// Eliminar item del carrito
+if (cartItemsList) {
+    cartItemsList.addEventListener('click', function(e) {
+        if (e.target.classList.contains('remove-btn') || e.target.closest('.remove-btn')) {
+            const id = e.target.dataset.id || e.target.closest('.remove-btn').dataset.id;
+            let cart = getCart();
+            cart = cart.filter(item => item.id !== id);
+            setCart(cart);
+            updateCartModal();
+        }
+    });
+}
+
+// Ir al checkout
+if (checkoutBtn) {
+    checkoutBtn.addEventListener('click', function() {
+        window.location.href = 'checkout.html';
+    });
+}
+
+// Inicializar
 updateCartCount();
 
-// ------ CHECKOUT DEMO CON STRIPE ------
-checkoutBtn.onclick = function() {
-    // PARA PRUEBAS: Redirige a Stripe TEST Checkout página básica
-    // Cambia el URL por tu enlace de Stripe predefinido o genera desde backend en producción
-    window.location.href = 'https://buy.stripe.com/test_4gwcPOfSp3YOfFKbII'; // Stripe TEST LINK
-    // Limpia carrito si deseas:
-    // localStorage.removeItem('cart_bonanza');
-    // cartModal.style.display = 'none';
-};
+console.log('✅ Carrito cargado correctamente');
